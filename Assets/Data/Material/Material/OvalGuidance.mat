@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BeginnerGuidance
-  m_Shader: {fileID: 4800000, guid: 5210e64456dfbaf40956d0891040e06d, type: 3}
+  m_Name: OvalGuidance
+  m_Shader: {fileID: 4800000, guid: c1d95f26a1d856040926484d356103a7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -56,6 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Aspect: 5.57
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5
@@ -68,8 +69,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SliderX: 97.80648
-    - _SliderY: 43.90935
+    - _Slider: 1500
+    - _SliderX: 80
+    - _SliderY: 42.50677
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -81,7 +83,8 @@ Material:
     - _UVSec: 0
     - _UseUIAlphaClip: 0
     - _ZWrite: 1
+    - _indentiy: 2
     m_Colors:
-    - _Center: {r: 0, g: 207, b: 0, a: 0}
+    - _Center: {r: 256, g: -21, b: 0, a: 0}
     - _Color: {r: 0.11320752, g: 0.10733354, b: 0.10733354, a: 0.23529412}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

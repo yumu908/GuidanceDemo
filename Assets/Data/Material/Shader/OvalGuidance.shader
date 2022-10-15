@@ -1,4 +1,4 @@
-﻿Shader "Custom/CircleGuidance"
+﻿Shader "Custom/OvalGuidance"
 {
     Properties
     {
@@ -16,7 +16,9 @@
         [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
         _Center("Center",vector) = (0,0,0,0)
-        _Slider("Slider",Range(0,1500)) = 1500
+        _SliderX("SliderX",Range(0,1500)) = 1500
+        _SliderY("SliderY",Range(0,1500)) = 1500
+        _indentiy("indentiy",Range(0,10)) = 1
     }
 
         SubShader
@@ -81,8 +83,10 @@
                 fixed4 _TextureSampleAdd;
                 float4 _ClipRect;
                 float2 _Center;
-                float _Slider;
-
+                float _SliderX;
+                float _SliderY;
+                float _indentiy;
+       
                 v2f vert(appdata_t v)
                 {
                     v2f OUT;
@@ -110,8 +114,17 @@
                     #ifdef UNITY_UI_ALPHACLIP
                     clip(color.a - 0.001);
                     #endif
-                   
-                    color.a *= (distance(IN.worldPosition.xy, _Center.xy) > _Slider);
+
+                    // a* a - b*b = c*c , a为长轴，b为短轴， c为焦点
+                    float disX = IN.worldPosition.x - _Center.x;
+                    float disY = IN.worldPosition.y - _Center.y;
+                    
+                    //float aspect = _SliderX / _SliderY; // 长短轴之比
+                    // 所以一个是 aspect / (1 + aspect)， 另外一个是 1 / (1 + aspect), 他们相加等于1
+                    // 令 （x * x）/ （a * a) = 1/2, （y * y）/ （b * b) = 1/2 ,则此时a/b = 1
+                    // 若  （x * x）/ （a * a) = 3/4, （y * y）/ （b * b) = 1/4， 则此时a/b = 3
+                    //color.a *= aspect / (1 + aspect) * (disX * disX) / (_SliderX * _SliderX) +  1 / (1 + aspect) * (disY * disY) / (_SliderY * _SliderY) > 1;
+                    color.a *= (disX * disX) / (_SliderX * _SliderX) + (disY * disY) / (_SliderY * _SliderY) >  _indentiy;
                     color.rgb *= color.a;
 
                     return color;
